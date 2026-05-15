@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <meta name="description" content="Portal exclusivo do Conselho Fiscal - Acesso rápido a materiais e recursos através do QR Code da capa do livro">
-    <meta name="theme-color" content="#0f172a">
-    <title>Conselho Fiscal | Portal de Recursos Exclusivos</title>
+    <meta name="description" content="Portal exclusivo do Conselho Fiscal - Materiais complementares e recursos bônus para leitores do livro">
+    <meta name="theme-color" content="#0a0a0a">
+    <title>Conselho Fiscal | Materiais Complementares</title>
     <style>
         * {
             margin: 0;
@@ -15,10 +15,49 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Poppins', 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
             color: #f1f5f9;
             line-height: 1.5;
-            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* Overlay com a capa do livro como background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('capa-livro.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            filter: blur(8px) brightness(0.3);
+            transform: scale(1.05);
+            z-index: -2;
+        }
+
+        /* Overlay escuro para contraste e legibilidade */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.75) 100%);
+            z-index: -1;
+        }
+
+        /* Container principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            position: relative;
+            z-index: 2;
         }
 
         /* Animações */
@@ -33,9 +72,9 @@
             }
         }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @keyframes pulse {
@@ -48,78 +87,49 @@
             100% { background-position: 200%; }
         }
 
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
         @keyframes rotate {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Background decorativo */
-        .bg-decoration {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .bg-decoration::before {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, transparent 70%);
-            top: 10%;
-            left: -150px;
-            border-radius: 50%;
-        }
-
-        .bg-decoration::after {
-            content: '';
-            position: absolute;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(139,92,246,0.08) 0%, transparent 70%);
-            bottom: 10%;
-            right: -200px;
-            border-radius: 50%;
-        }
-
         /* Header Hero */
         .hero {
             text-align: center;
-            padding: 60px 20px 40px;
+            padding: 40px 20px 30px;
             animation: fadeInUp 0.8s ease-out;
-            position: relative;
         }
 
         .qr-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            padding: 8px 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 10px 24px;
             border-radius: 50px;
             font-size: 0.85em;
             font-weight: 600;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            box-shadow: 0 4px 15px rgba(59,130,246,0.3);
+            border: 1px solid rgba(255,255,255,0.2);
             animation: pulse 2s infinite;
+        }
+
+        .qr-badge::before {
+            content: '📱';
+            font-size: 1.2em;
         }
 
         .hero h1 {
             font-size: 3.5em;
             margin-bottom: 20px;
-            background: linear-gradient(135deg, #fff, #94a3b8);
+            background: linear-gradient(135deg, #fff, #94a3b8, #cbd5e1);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -133,8 +143,29 @@
             margin: 0 auto;
         }
 
-        /* Grid Principal */
-        .resources-grid {
+        /* Mensagem de boas-vindas especial */
+        .welcome-message {
+            background: rgba(59, 130, 246, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px 30px;
+            margin: 30px 0 40px;
+            text-align: center;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            animation: fadeInUp 0.8s ease-out 0.1s both;
+        }
+
+        .welcome-message p {
+            font-size: 1.1em;
+            color: #e2e8f0;
+        }
+
+        .welcome-message strong {
+            color: #60a5fa;
+        }
+
+        /* Grid de Materiais Bônus */
+        .bonus-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
@@ -143,30 +174,30 @@
 
         /* Cards Estilizados */
         .card {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(12px);
             border-radius: 24px;
-            padding: 0;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(255,255,255,0.1);
             overflow: hidden;
             animation: fadeInUp 0.8s ease-out;
             animation-fill-mode: both;
         }
 
-        .card:nth-child(1) { animation-delay: 0.1s; }
-        .card:nth-child(2) { animation-delay: 0.2s; }
-        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(1) { animation-delay: 0.15s; }
+        .card:nth-child(2) { animation-delay: 0.25s; }
+        .card:nth-child(3) { animation-delay: 0.35s; }
 
         .card:hover {
             transform: translateY(-10px) scale(1.02);
-            border-color: rgba(59, 130, 246, 0.5);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            background: rgba(15, 23, 42, 0.85);
         }
 
         .card-header {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            padding: 25px;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+            padding: 30px 25px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -200,7 +231,7 @@
 
         .card-content p {
             color: #cbd5e1;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             line-height: 1.6;
         }
 
@@ -208,6 +239,7 @@
         .btn {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 10px;
             padding: 12px 28px;
             border-radius: 50px;
@@ -217,6 +249,7 @@
             border: none;
             cursor: pointer;
             font-size: 1em;
+            width: 100%;
         }
 
         .btn-primary {
@@ -230,6 +263,16 @@
             box-shadow: 0 8px 25px rgba(59,130,246,0.4);
         }
 
+        .btn-download {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16,185,129,0.3);
+        }
+
         .btn-secondary {
             background: rgba(59, 130, 246, 0.2);
             border: 1px solid #3b82f6;
@@ -241,30 +284,20 @@
             transform: translateY(-2px);
         }
 
-        .btn-download {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-        }
-
-        .btn-download:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(16,185,129,0.3);
-        }
-
-        /* Seção do Checklist */
-        .checklist-section {
+        /* Seção do Checklist em Detalhe */
+        .checklist-premium {
             background: rgba(30, 41, 59, 0.5);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             border-radius: 24px;
             padding: 40px;
             margin: 40px 0;
-            border: 1px solid rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(255,255,255,0.1);
             animation: fadeInUp 0.8s ease-out 0.4s both;
         }
 
-        .checklist-section h2 {
+        .checklist-premium h2 {
             font-size: 2em;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
             text-align: center;
             background: linear-gradient(135deg, #fff, #94a3b8);
             -webkit-background-clip: text;
@@ -272,10 +305,17 @@
             color: transparent;
         }
 
+        .checklist-premium > p {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #94a3b8;
+        }
+
         .checklist-steps {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
+            margin-bottom: 40px;
         }
 
         .step {
@@ -287,7 +327,7 @@
         }
 
         .step:hover {
-            background: rgba(59, 130, 246, 0.1);
+            background: rgba(59, 130, 246, 0.15);
             transform: translateY(-5px);
         }
 
@@ -299,7 +339,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.5em;
+            font-size: 1.8em;
             font-weight: bold;
             margin: 0 auto 20px;
             box-shadow: 0 4px 15px rgba(59,130,246,0.3);
@@ -315,50 +355,48 @@
             font-size: 0.95em;
         }
 
-        /* Banner QR Code */
-        .qr-banner {
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            border-radius: 24px;
-            padding: 50px 30px;
+        /* Banner de Dica Especial */
+        .tip-banner {
+            background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(59,130,246,0.2));
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
             text-align: center;
-            margin: 40px 0;
-            position: relative;
-            overflow: hidden;
-            animation: fadeInUp 0.8s ease-out 0.5s both;
+            border: 1px solid rgba(139,92,246,0.3);
+            animation: float 3s ease-in-out infinite;
         }
 
-        .qr-banner::before {
-            content: '📱';
-            position: absolute;
-            font-size: 200px;
-            opacity: 0.1;
-            right: -50px;
-            bottom: -50px;
-            transform: rotate(-15deg);
-            pointer-events: none;
-        }
-
-        .qr-banner h3 {
-            font-size: 2em;
+        .tip-banner h3 {
+            font-size: 1.5em;
             margin-bottom: 15px;
         }
 
-        .qr-banner p {
-            font-size: 1.1em;
-            margin-bottom: 25px;
-            opacity: 0.95;
+        .tip-banner p {
+            color: #cbd5e1;
         }
 
         /* Footer */
         .footer {
             text-align: center;
-            padding: 40px 20px;
-            border-top: 1px solid rgba(59, 130, 246, 0.2);
+            padding: 40px 20px 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
             margin-top: 40px;
         }
 
         .footer p {
             color: #64748b;
+            font-size: 0.9em;
+        }
+
+        /* Loading spinner */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: rotate 0.8s linear infinite;
         }
 
         /* Responsivo */
@@ -371,7 +409,7 @@
                 font-size: 1em;
             }
             
-            .resources-grid {
+            .bonus-grid {
                 grid-template-columns: 1fr;
             }
             
@@ -383,60 +421,36 @@
                 font-size: 1.5em;
             }
             
-            .qr-banner h3 {
-                font-size: 1.5em;
+            .checklist-premium {
+                padding: 25px;
             }
-        }
-
-        /* Loading spinner para downloads */
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: rotate 0.8s linear infinite;
-        }
-
-        /* Tooltip */
-        .tooltip {
-            position: relative;
-        }
-
-        .tooltip:hover::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #1e293b;
-            color: white;
-            padding: 5px 10px;
-            border-radius: 8px;
-            font-size: 0.8em;
-            white-space: nowrap;
-            margin-bottom: 8px;
+            
+            .welcome-message p {
+                font-size: 1em;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="bg-decoration"></div>
-    
     <div class="container">
         <!-- Hero Section -->
         <div class="hero">
             <div class="qr-badge">
-                ⚡ ACESSO EXCLUSIVO VIA QR CODE
+                ACESSO EXCLUSIVO
             </div>
             <h1>
-                Conselho Fiscal
+                Materiais Complementares
             </h1>
-            <p>Portal de recursos exclusivos para leitores do livro. Escaneie o QR Code e tenha acesso a materiais complementares premium.</p>
+            <p>Recursos exclusivos para aprofundar seu conhecimento e colocar em prática o que você aprendeu no livro.</p>
         </div>
 
-        <!-- Grid de Recursos Principais -->
-        <div class="resources-grid">
+        <!-- Mensagem de boas-vindas especial -->
+        <div class="welcome-message">
+            <p>📘 <strong>Olá, leitor!</strong> Você já tem em mãos a capa deste livro. Agora, acesse conteúdos que vão além — <strong>ferramentas práticas, checklists e bônus exclusivos</strong> para potencializar seus resultados.</p>
+        </div>
+
+        <!-- Grid de Materiais Bônus -->
+        <div class="bonus-grid">
             <!-- Card Checklist -->
             <div class="card">
                 <div class="card-header">
@@ -444,45 +458,46 @@
                     <h2>Checklist Premium</h2>
                 </div>
                 <div class="card-content">
-                    <p>Guia prático em 3 passos para implementar as estratégias do livro. Material exclusivo para leitores.</p>
+                    <p>Baixe o guia prático em 3 passos. Um material objetivo para você implementar as estratégias do livro imediatamente.</p>
                     <a href="checklist-3-passos.pdf" class="btn btn-download" download id="download-checklist">
                         📥 Baixar Checklist (PDF)
                     </a>
                 </div>
             </div>
 
-            <!-- Card Capa do Livro -->
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-icon">📖</div>
-                    <h2>Visualizar Capa</h2>
-                </div>
-                <div class="card-content">
-                    <p>Visualização em alta resolução da capa do livro. Compartilhe nas suas redes sociais.</p>
-                    <a href="capa-livro.png" class="btn btn-primary" target="_blank">
-                        🖼️ Ver Imagem
-                    </a>
-                </div>
-            </div>
-
-            <!-- Card Bônus -->
+            <!-- Card Bônus Exclusivo -->
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon">🎁</div>
-                    <h2>Conteúdo Bônus</h2>
+                    <h2>Materiais Bônus</h2>
                 </div>
                 <div class="card-content">
-                    <p>Materiais complementares, planilhas e recursos extras para aprofundar seu conhecimento.</p>
-                    <button class="btn btn-secondary" onclick="alert('📧 Em breve! Cadastre-se para receber conteúdos exclusivos.')">
-                        🔓 Desbloquear Bônus
+                    <p>Planilhas, templates e recursos extras que complementam o livro. Conteúdo exclusivo para leitores.</p>
+                    <button class="btn btn-secondary" onclick="alert('🎉 Em breve! Cadastre seu email para receber os bônus exclusivos diretamente.')">
+                        🔓 Em breve
+                    </button>
+                </div>
+            </div>
+
+            <!-- Card Comunidade -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">💬</div>
+                    <h2>Comunidade</h2>
+                </div>
+                <div class="card-content">
+                    <p>Conecte-se com outros leitores, tire dúvidas e compartilhe experiências.</p>
+                    <button class="btn btn-secondary" onclick="alert('👥 Grupo exclusivo em breve! Acesse pelo link que será enviado por email.')">
+                        🔗 Participar
                     </button>
                 </div>
             </div>
         </div>
 
         <!-- Seção Detalhada do Checklist -->
-        <div class="checklist-section">
+        <div class="checklist-premium">
             <h2>✓ Checklist em 3 Passos</h2>
+            <p>O passo a passo para aplicar os conceitos do livro</p>
             <div class="checklist-steps">
                 <div class="step">
                     <div class="step-number">1</div>
@@ -500,27 +515,24 @@
                     <p>Elabore relatório executivo, apresente recomendações e acompanhe implementação.</p>
                 </div>
             </div>
-            <div style="text-align: center; margin-top: 35px;">
-                <a href="checklist-3-passos.pdf" class="btn btn-download" download style="padding: 14px 35px;">
+            <div style="text-align: center;">
+                <a href="checklist-3-passos.pdf" class="btn btn-download" download style="width: auto; padding: 14px 35px;">
                     📥 Download Completo do Checklist
                 </a>
             </div>
         </div>
 
-        <!-- Banner QR Code -->
-        <div class="qr-banner">
-            <h3>📱 Este site foi acessado via QR Code</h3>
-            <p>Salve este link nos favoritos para acessar os materiais quando quiser!</p>
-            <button class="btn btn-primary" onclick="copyToClipboard()">
-                🔗 Copiar Link do Site
-            </button>
+        <!-- Dica Especial -->
+        <div class="tip-banner">
+            <h3>💡 Dica do Autor</h3>
+            <p>"A teoria se aprende no livro, mas a transformação acontece na prática. Use este checklist como seu guia diário de implementação."</p>
         </div>
 
         <!-- Footer -->
         <div class="footer">
             <p>© 2026 Conselho Fiscal - Todos os direitos reservados</p>
-            <p style="margin-top: 10px; font-size: 0.85em; opacity: 0.7;">
-                Material exclusivo para leitores do livro
+            <p style="margin-top: 8px; font-size: 0.8em;">
+                Material complementar exclusivo para leitores do livro
             </p>
         </div>
     </div>
@@ -540,19 +552,6 @@
             });
         });
 
-        // Função para copiar link
-        function copyToClipboard() {
-            const url = window.location.href;
-            navigator.clipboard.writeText(url).then(() => {
-                const btn = event.target;
-                const originalText = btn.innerHTML;
-                btn.innerHTML = '✅ Link copiado!';
-                setTimeout(() => {
-                    btn.innerHTML = originalText;
-                }, 2000);
-            });
-        }
-
         // Animação ao scroll
         const observerOptions = {
             threshold: 0.1,
@@ -568,40 +567,31 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.card, .checklist-section, .qr-banner').forEach(el => {
+        document.querySelectorAll('.card, .checklist-premium, .tip-banner, .welcome-message').forEach(el => {
             el.style.opacity = '0';
             el.style.transform = 'translateY(30px)';
             el.style.transition = 'all 0.6s ease-out';
             observer.observe(el);
         });
 
-        // Verificar se os arquivos existem
-        async function checkFiles() {
-            const files = ['checklist-3-passos.pdf', 'capa-livro.png'];
-            for (const file of files) {
-                try {
-                    const response = await fetch(file, { method: 'HEAD' });
-                    if (!response.ok) {
-                        console.warn(`⚠️ Arquivo não encontrado: ${file}`);
-                    } else {
-                        console.log(`✅ Arquivo disponível: ${file}`);
-                    }
-                } catch (error) {
-                    console.warn(`⚠️ Erro ao verificar ${file}`);
+        // Verificar se o arquivo checklist existe
+        async function checkFile() {
+            try {
+                const response = await fetch('checklist-3-passos.pdf', { method: 'HEAD' });
+                if (!response.ok) {
+                    console.warn('⚠️ Arquivo checklist-3-passos.pdf não encontrado');
+                } else {
+                    console.log('✅ Checklist disponível para download');
                 }
+            } catch (error) {
+                console.warn('⚠️ Erro ao verificar checklist');
             }
         }
         
-        checkFiles();
+        checkFile();
 
-        // Efeito de digitação no título (opcional)
-        const title = document.querySelector('.hero h1');
-        const originalTitle = title.innerHTML;
-        title.style.opacity = '0';
-        
-        setTimeout(() => {
-            title.style.opacity = '1';
-        }, 100);
+        // Mensagem no console para o leitor
+        console.log('%c📘 Bem-vindo, leitor! Aproveite os materiais exclusivos.', 'color: #60a5fa; font-size: 16px; font-weight: bold;');
     </script>
 </body>
 </html>
