@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Portal do Conselho Fiscal | Recursos Grátis</title>
+    <meta name="description" content="Acesso exclusivo para leitores do livro 'Conselho Fiscal: com domínio das contas'. Baixe checklists, planilhas, vídeo e áudio gratuitos.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #f4f7fb;
+            color: #1a2a3f;
+            line-height: 1.5;
+            padding: 24px 16px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #0b2b3b 0%, #1a4a5f 100%);
+            color: white;
+            padding: 32px 28px;
+            text-align: center;
+        }
+
+        .hero img {
+            max-width: 150px;
+            border-radius: 12px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+            border: 3px solid #ffc857;
+        }
+
+        .hero h1 {
+            font-size: 1.9rem;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .content {
+            padding: 40px 32px;
+        }
+
+        .highlight-box {
+            background-color: #eef2fa;
+            border-left: 6px solid #ffc857;
+            padding: 20px 24px;
+            border-radius: 20px;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 48px 0 20px 0;
+            border-bottom: 4px solid #ffc857;
+            display: inline-block;
+            padding-bottom: 6px;
+        }
+
+        .card-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            margin: 30px 0;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            padding: 24px;
+            flex: 1 1 220px;
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #1e5a6b;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 16px;
+            transition: 0.2s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn:hover {
+            background-color: #0f3b48;
+        }
+
+        .btn-gold {
+            background-color: #ffc857;
+            color: #1a2a3f;
+        }
+
+        .btn-gold:hover {
+            background-color: #e0aa2f;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: #f9fafc;
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid #dce3ec;
+        }
+
+        th {
+            background-color: #e2e9f0;
+            font-weight: 700;
+        }
+
+        .testimonial {
+            background: #fef7e0;
+            padding: 20px;
+            border-radius: 24px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+
+        .faq-item {
+            margin: 20px 0;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 16px;
+        }
+
+        .faq-question {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        footer {
+            background: #0b2b3b;
+            color: #cbd5e6;
+            text-align: center;
+            padding: 28px 20px;
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: #ffc857;
+            text-decoration: none;
+        }
+
+        .form-group {
+            margin: 16px 0;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 48px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 700px) {
+            .hero h1 { font-size: 1.6rem; }
+            .content { padding: 24px 20px; }
+            .card-grid { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero">
+        <img src="assets/images/capa-livro.jpg" 
+             alt="Capa do livro Conselho Fiscal: com domínio das contas"
+             onerror="this.src='https://placehold.co/150x200?text=Capa+do+Livro'">
+        <h1>🎁 PORTAL DE RECURSOS<br>DO CONSELHEIRO FISCAL</h1>
+        <p>Acesso exclusivo para leitores do livro <strong>"Conselho Fiscal: com domínio das contas"</strong></p>
+    </div>
+
+    <div class="content">
+        <div class="highlight-box">
+            📌 <strong>Bem-vindo, conselheiro!</strong> Você acabou de dar o primeiro passo para fiscalizar com técnica, segurança jurídica e evitar a temida <strong>culpa in vigilando</strong> (responsabilidade por omissão). 
+            Abaixo estão os recursos gratuitos preparados para você.
+        </div>
+
+        <h2 class="section-title">📦 Recursos gratuitos imediatos</h2>
+        <div class="card-grid">
+            <div class="card">
+                <div style="font-size: 2.4rem;">📋</div>
+                <h3>Checklist 3 Passos</h3>
+                <p>O que verificar antes de assinar um parecer.</p>
+                <a href="assets/downloads/checklist-3-passos.pdf" class="btn btn-small" target="_blank">Baixar checklist (PDF)</a>
+            </div>
+            <div class="card">
+                <div style="font-size: 2.4rem;">🎥</div>
+                <h3>Vídeo: 3 erros fatais</h3>
+                <p>Baseado no Capítulo 4.5 do livro.</p>
+                <a href="video/3-erros-conselho-fiscal.mp4" class="btn btn-small" target="_blank">Assistir ao vídeo</a>
+            </div>
+            <div class="card">
+                <div style="font-size: 2.4rem;">📊</div>
+                <h3>Planilha + Conciliação PIX</h3>
+                <p>Modelo usado pelo autor em seus pareceres.</p>
+                <a href="assets/downloads/planilha-conciliacao.xlsx" class="btn btn-small" target="_blank">Baixar planilha</a>
+            </div>
+            <div class="card">
+                <div style="font-size: 2.4rem;">🎧</div>
+                <h3>Áudio "Desconfiança moderada"</h3>
+                <p>Reflexão de Silvio Pellico narrada.</p>
+                <a href="assets/downloads/audio-desconfianca.mp3" class="btn btn-small" target="_blank">Ouvir áudio</a>
+            </div>
+        </div>
+
+        <h2 class="section-title">📖 Por que você precisa do livro completo?</h2>
+        <p>Os recursos gratuitos são só a ponta do iceberg. No livro <strong>"Conselho Fiscal: com domínio das contas"</strong> você encontra:</p>
+        
+        <table>
+            <thead><tr><th>✅ O que só o livro entrega</th><th>✅ O que só o livro entrega</th></tr></thead>
+            <tbody>
+                <tr><td>📋 Checklist de 65 itens para fiscalização mensal</td><td>🧠 Fluxogramas decisórios para agir em crises</td></tr>
+                <tr><td>📝 Modelos prontos de parecer, notificação e denúncia ao MP</td><td>📚 Glossário jurídico-contábil (não precisa ser contador)</td></tr>
+                <tr><td>📅 Tabela de prazos de guarda de documentos (35 anos para FGTS)</td><td>🤖 Orientações sobre LGPD e IA na fiscalização</td></tr>
+            </tbody>
+        </table>
+
+        <div class="highlight-box" style="background:#f4f0e6;">
+            💡 <em>"O Conselho Fiscal que opera com achismo, improviso e boa vontade está a um parecer mal escrito de ser responsabilizado pessoalmente."</em><br>
+            — José Erigutemberg Meneses de Lima, autor
+        </div>
+
+        <h2 class="section-title">🛒 Adquira o livro agora</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 20px; margin: 20px 0;">
+            <div style="flex:1; background:#f0f3f8; border-radius: 24px; padding: 20px;">
+                <h3>📘 Versão física (impressa)</h3>
+                <p>Entrega em todo Brasil.</p>
+                <a href="#" class="btn" id="btn-comprar-fisico">Comprar versão física →</a>
+            </div>
+            <div style="flex:1; background:#f0f3f8; border-radius: 24px; padding: 20px;">
+                <h3>📱 Versão digital (PDF)</h3>
+                <p>Acesso imediato.</p>
+                <a href="#" class="btn btn-gold" id="btn-comprar-digital">Comprar digital →</a>
+            </div>
+        </div>
+
+        <h2 class="section-title">📧 Receba atualizações contínuas</h2>
+        <form id="form-newsletter" style="background: #eef2fa; padding: 24px; border-radius: 32px; margin: 24px 0;">
+            <div class="form-group">
+                <input type="text" id="nome" placeholder="Seu nome completo" required>
+            </div>
+            <div class="form-group">
+                <input type="email" id="email" placeholder="Seu melhor e-mail" required>
+            </div>
+            <button type="submit" class="btn">📩 Quero receber atualizações</button>
+        </form>
+
+        <h2 class="section-title">💬 Depoimentos</h2>
+        <div class="testimonial">"Finalmente um livro que não fica só na teoria. Os anexos são ouro puro para o dia a dia."<br><strong>— Carlos A.</strong></div>
+        <div class="testimonial">"A leitura me impediu de aprovar contas com irregularidades ocultas. Evitei um processo de R$ 40 mil."<br><strong>— Mariana F.</strong></div>
+
+        <h2 class="section-title">❓ Dúvidas frequentes</h2>
+        <div class="faq-item"><div class="faq-question">Posso compartilhar os recursos gratuitos?</div>Sim, dentro do seu condomínio.</div>
+        <div class="faq-item"><div class="faq-question">O livro tem garantia?</div>Sim. 7 dias para devolução integral.</div>
+        <div class="faq-item"><div class="faq-question">O QR Code da capa dá acesso a esses materiais?</div>Exatamente!</div>
+    </div>
+
+    <footer>
+        <p>© 2026 – José Erigutemberg Meneses de Lima | <strong>Conselho Fiscal: com domínio das contas</strong> – 2ª edição</p>
+        <p>🌐 Portal de Recursos do Conselho Fiscal – Atualizações contínuas</p>
+    </footer>
+</div>
+
+<script>
+    document.getElementById('btn-comprar-fisico')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert('📞 Contato para compra: (47) 99999-9999 ou autor@conselhofiscal.com.br');
+    });
+    document.getElementById('btn-comprar-digital')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        alert('🔗 Link de compra digital em breve. Acompanhe as atualizações!');
+    });
+    document.getElementById('form-newsletter')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const nome = document.getElementById('nome').value;
+        alert(`✅ Obrigado, ${nome}! Você receberá nossas atualizações por e-mail.`);
+        e.target.reset();
+    });
+</script>
+</body>
+</html>
