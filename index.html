@@ -21,7 +21,7 @@
             position: relative;
         }
 
-        /* Overlay com a capa do livro como background */
+        /* Overlay com a capa do livro como background - VÁRIAS TENTATIVAS */
         body::before {
             content: '';
             position: fixed;
@@ -29,17 +29,24 @@
             left: 0;
             width: 100%;
             height: 100%;
+            /* Tentativa 1: caminho direto */
             background-image: url('capa-livro.png');
+            /* Tentativa 2: caminho com ./ */
+            background-image: url('./capa-livro.png');
+            /* Tentativa 3: caminho relativo raiz */
+            background-image: url('/capa-livro.png');
+            /* Fallback: gradiente caso nenhuma imagem carregue */
+            background-image: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            filter: blur(8px) brightness(0.3);
+            filter: blur(10px) brightness(0.3) contrast(1.2);
             transform: scale(1.05);
             z-index: -2;
         }
 
-        /* Overlay escuro para contraste e legibilidade */
+        /* Overlay escuro para contraste */
         body::after {
             content: '';
             position: fixed;
@@ -47,11 +54,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.75) 100%);
+            background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.7) 100%);
             z-index: -1;
         }
 
-        /* Container principal */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -70,11 +76,6 @@
                 opacity: 1;
                 transform: translateY(0);
             }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
 
         @keyframes pulse {
@@ -143,7 +144,39 @@
             margin: 0 auto;
         }
 
-        /* Mensagem de boas-vindas especial */
+        /* Card de Pré-visualização da Capa */
+        .capa-preview {
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px auto 40px;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+            animation: fadeInUp 0.8s ease-out 0.05s both;
+        }
+
+        .capa-preview img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .capa-preview img:hover {
+            transform: scale(1.02);
+        }
+
+        .capa-preview p {
+            margin-top: 12px;
+            font-size: 0.85em;
+            color: #94a3b8;
+        }
+
+        /* Mensagem de boas-vindas */
         .welcome-message {
             background: rgba(59, 130, 246, 0.15);
             backdrop-filter: blur(10px);
@@ -164,7 +197,7 @@
             color: #60a5fa;
         }
 
-        /* Grid de Materiais Bônus */
+        /* Grid de Materiais */
         .bonus-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -172,7 +205,7 @@
             margin: 50px 0;
         }
 
-        /* Cards Estilizados */
+        /* Cards */
         .card {
             background: rgba(15, 23, 42, 0.7);
             backdrop-filter: blur(12px);
@@ -284,7 +317,7 @@
             transform: translateY(-2px);
         }
 
-        /* Seção do Checklist em Detalhe */
+        /* Seção Checklist */
         .checklist-premium {
             background: rgba(30, 41, 59, 0.5);
             backdrop-filter: blur(12px);
@@ -355,7 +388,7 @@
             font-size: 0.95em;
         }
 
-        /* Banner de Dica Especial */
+        /* Dica */
         .tip-banner {
             background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(59,130,246,0.2));
             border-radius: 20px;
@@ -388,7 +421,6 @@
             font-size: 0.9em;
         }
 
-        /* Loading spinner */
         .loading {
             display: inline-block;
             width: 20px;
@@ -399,7 +431,6 @@
             animation: rotate 0.8s linear infinite;
         }
 
-        /* Responsivo */
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.2em;
@@ -433,7 +464,6 @@
 </head>
 <body>
     <div class="container">
-        <!-- Hero Section -->
         <div class="hero">
             <div class="qr-badge">
                 ACESSO EXCLUSIVO
@@ -444,14 +474,17 @@
             <p>Recursos exclusivos para aprofundar seu conhecimento e colocar em prática o que você aprendeu no livro.</p>
         </div>
 
-        <!-- Mensagem de boas-vindas especial -->
+        <!-- Pré-visualização da Capa do Livro -->
+        <div class="capa-preview" id="capaPreview">
+            <img src="capa-livro.png" alt="Capa do Livro Conselho Fiscal" onerror="this.onerror=null; this.parentElement.style.display='none'; document.body.style.backgroundImage='linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%)'">
+            <p>📘 Você está com a capa em mãos — agora acesse os bônus digitais!</p>
+        </div>
+
         <div class="welcome-message">
             <p>📘 <strong>Olá, leitor!</strong> Você já tem em mãos a capa deste livro. Agora, acesse conteúdos que vão além — <strong>ferramentas práticas, checklists e bônus exclusivos</strong> para potencializar seus resultados.</p>
         </div>
 
-        <!-- Grid de Materiais Bônus -->
         <div class="bonus-grid">
-            <!-- Card Checklist -->
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon">📋</div>
@@ -465,7 +498,6 @@
                 </div>
             </div>
 
-            <!-- Card Bônus Exclusivo -->
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon">🎁</div>
@@ -479,7 +511,6 @@
                 </div>
             </div>
 
-            <!-- Card Comunidade -->
             <div class="card">
                 <div class="card-header">
                     <div class="card-icon">💬</div>
@@ -494,7 +525,6 @@
             </div>
         </div>
 
-        <!-- Seção Detalhada do Checklist -->
         <div class="checklist-premium">
             <h2>✓ Checklist em 3 Passos</h2>
             <p>O passo a passo para aplicar os conceitos do livro</p>
@@ -522,13 +552,11 @@
             </div>
         </div>
 
-        <!-- Dica Especial -->
         <div class="tip-banner">
             <h3>💡 Dica do Autor</h3>
             <p>"A teoria se aprende no livro, mas a transformação acontece na prática. Use este checklist como seu guia diário de implementação."</p>
         </div>
 
-        <!-- Footer -->
         <div class="footer">
             <p>© 2026 Conselho Fiscal - Todos os direitos reservados</p>
             <p style="margin-top: 8px; font-size: 0.8em;">
@@ -552,29 +580,22 @@
             });
         });
 
-        // Animação ao scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+        // Verificar se a imagem da capa existe
+        const img = new Image();
+        img.onload = function() {
+            console.log('✅ Capa do livro carregada com sucesso!');
+            // Aplica a imagem como background
+            document.body.style.backgroundImage = `url('capa-livro.png')`;
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundPosition = 'center';
+            document.body.style.backgroundAttachment = 'fixed';
         };
+        img.onerror = function() {
+            console.warn('⚠️ Arquivo capa-livro.png não encontrado. Verifique se o arquivo está no repositório.');
+        };
+        img.src = 'capa-livro.png';
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.card, .checklist-premium, .tip-banner, .welcome-message').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'all 0.6s ease-out';
-            observer.observe(el);
-        });
-
-        // Verificar se o arquivo checklist existe
+        // Verificar checklist
         async function checkFile() {
             try {
                 const response = await fetch('checklist-3-passos.pdf', { method: 'HEAD' });
@@ -590,8 +611,29 @@
         
         checkFile();
 
-        // Mensagem no console para o leitor
-        console.log('%c📘 Bem-vindo, leitor! Aproveite os materiais exclusivos.', 'color: #60a5fa; font-size: 16px; font-weight: bold;');
+        // Animação scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card, .checklist-premium, .tip-banner, .welcome-message, .capa-preview').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+
+        console.log('%c📘 Site do Conselho Fiscal - Materiais Complementares', 'color: #60a5fa; font-size: 14px;');
     </script>
 </body>
 </html>
